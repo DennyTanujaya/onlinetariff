@@ -1,0 +1,477 @@
+<?php
+    $username = $_SESSION['username'];
+            $password = $_SESSION['password'];
+
+            if(!empty($_POST['destination']))
+            {
+                $destination = $_POST['destination'];
+            }
+            else
+            {
+                $destination = $_GET['key'];
+            }
+
+            $checkIn = $_POST['dt1'];
+            $checkOut = $_POST['dt2'];
+            $adult = $_POST['adult'];
+            $children = $_POST['children'];
+            $roomType = $_POST['roomtype'];
+            $checkInFix = date('Y-m-d', strtotime($checkIn));
+            $checkOutFix = date('Y-m-d', strtotime($checkOut));
+            $dateFrom = $checkInFix;
+            $selisih = strtotime($checkOutFix) - strtotime($checkInFix);
+            $SCUqty = $selisih/(60*60*24);
+
+            $supplierCode = substr($destination,3,3);
+            //$opt = "DPSACAAPDPS??????";
+            $opt = '???AC'.$destination.'??????';
+            $code = substr($opt, 5, 6);//supplier code
+            $service = substr($opt, 11, 6);//option code
+            $pax = $adult+$children;
+
+            //echo 'username: '.$username.'<br />password: '.$password.'<br />destination: '.$destination.'<br />dateFrom: '.$dateFrom.'<br />date to: '.$dateTo.'<br />room: '.$rooms.'<br />Children: '.$children.'<br />Adult: '.$adults.'<br />SCU: '.$interval.'<br />locCOde: '.$locCOde.'<br />Code: '.$code.'<br />Address: '.$address.'<br />service: '.$service.'';
+
+            $xml_request = '<?xml version="1.0"?>'
+            .'<!DOCTYPE Request SYSTEM "hostConnect_3_10_480.dtd">'
+            .'<Request CompressReply="Y">'
+            .'<OptionInfoRequest>'
+            .'<AgentID>'.$username.'</AgentID>'
+            .'<Password>'.$password.'</Password>'
+            .'<Opt>'.$opt.'</Opt>'
+            .'<Info>GMFTDS</Info>'
+            .'<DateFrom>'.$dateFrom.'</DateFrom>'
+            .'<SCUqty>'.$SCUqty.'</SCUqty>'
+            .'<RoomConfigs><RoomConfig>'
+            .'<Adults>'.$adult.'</Adults>'
+            .'<Children>'.$children.'</Children>'
+            .'<RoomType>'.$roomType.'</RoomType>'
+            .'</RoomConfig></RoomConfigs>'
+            .'</OptionInfoRequest>'
+            .'</Request>';
+
+            $url = "http://59.153.23.26:8080/iComLive/servlet/conn";
+            
+            $option = array(
+                CURLOPT_RETURNTRANSFER => TRUE,                         // return web page
+                CURLOPT_HEADER => FALSE,                                // don't return header
+                CURLOPT_POSTFIELDS => $xml_request,                     // POST XML Request
+                CURLOPT_HTTPHEADER => array('Content-Type: text/xml'),  // Sent HEADER XML
+                CURLOPT_URL => $url
+                );
+
+            //open connection
+            $ch = curl_init();
+            curl_setopt_array($ch, $option);
+            
+            $data = curl_exec($ch);
+
+            $uncompressed = gzdecode($data);
+
+
+            $xml = simplexml_load_string($uncompressed);
+            $optionProduct = $xml->OptionInfoReply;
+            $optXml = $xml->xpath("//Opt");
+
+            $xml_requestPrices = '<?xml version="1.0"?>'
+            .'<!DOCTYPE Request SYSTEM "hostConnect_3_10_480.dtd">'
+            .'<Request CompressReply="Y">'
+            .'<SupplierInfoRequest>'
+            .'<AgentID>'.$username.'</AgentID>'
+            .'<Password>'.$password.'</Password>'
+            .'<SupplierCode>'.$code.'</SupplierCode>'
+            .'</SupplierInfoRequest>'
+            .'</Request>';
+
+            $urls = "http://59.153.23.26:8080/iComLive/servlet/conn";
+            
+            $option = array(
+                CURLOPT_RETURNTRANSFER => TRUE,                         // return web page
+                CURLOPT_HEADER => FALSE,                                // don't return header
+                CURLOPT_POSTFIELDS => $xml_requestPrices,                       // POST XML Request
+                CURLOPT_HTTPHEADER => array('Content-Type: text/xml'),  // Sent HEADER XML
+                CURLOPT_URL => $urls
+                );
+
+            //open connection
+            $chs = curl_init();
+            curl_setopt_array($chs, $option);
+            
+            $datas = curl_exec($chs);
+
+            $uncompresseds = gzdecode($datas);
+
+
+            $xmls = simplexml_load_string($uncompresseds);
+            $option = $xmls->SupplierInfoReply->Suppliers;
+            $as = $xmls->xpath("//SupplierCode");
+            $amenity = $xmls->xpath("//Amenity");
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>HTML TO PDF</title>
+    
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+
+    <style>
+.overview{
+    margin: 40px;
+}
+.overview table td { 
+    display:table-cell;
+    vertical-align:top;
+    height:10px;
+}
+
+
+.rate-features ul, .rate-features2 ul { 
+    margin: 0;
+    padding-left: 15px;
+}
+.rate-features ul li, .rate-features2 ul li {
+    display: block;  
+    color: #58595b; 
+    padding-left: 1em;
+    background: url(../../images/arrow-s.png) no-repeat 0px  ;
+}
+
+.rate-features2 ol li{
+    display: block;      
+    color: #58595b;  
+    background: url(../../images/square.png) no-repeat 0px  ; 
+}
+</style>
+</head>
+
+<body style="margin:0;">
+    <div style="background-color:#ffffff"> 
+        <table width="1480" border="0" cellpadding="0" cellspacing="0" align="center" style="background-color:#ffffff; table-layout:fixed;margin:0 auto;">
+            <tr>
+                <td style="padding: 0 0 40px 0;"> <img style="display:block;" width="230" height="64" src="http://www.panorama-destination.com/wp-content/uploads/2016/08/Logo-Panorama.png" width="1480" alt="" /> </td>
+            </tr>
+            <tr>  
+                <!-- Judul Hotel Start-->
+                <tr>
+                    <td>
+                        <table width="100%" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center"> 
+                                        <!-- NOTE : JANGAN LUPA GANTI PATH GAMBARNYA "../PATH TO THE IMAGE." -->
+                                        <tr>
+                                            <td style="color: #58595b; font-family: Roboto, sans-serif; font-size: 20px; font-weight: 600;  line-height:24px; letter-spacing:1px;">
+                                                Grand Aston Bali Beach Resort <span><img src="image/5-star.jpg"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="100%" height="10"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <table width="60" height="1" bgcolor="#58595b" align="left" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="100%" height="10"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="100%" style="text-align:left; color: #58595b; font-family: roboto, sans-serif; font-size: 16px; font-weight: 400;">Jalan Pratama No.68X, Tanjung Benoa, Nusa Dua, Bali Indonesia, 80363</td>
+                                        </tr> 
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr> 
+                <!-- Judul Hotel End -->
+
+                <!-- Gallery List Start -->
+                <tr>
+                    <td>
+                        <table width="100%" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td width="100%" height="20"></td>
+                            </tr>
+                            <tr>
+                                <!-- NOTE : JANGAN LUPA GANTI PATH GAMBARNYA "../PATH TO THE IMAGE." -->
+                                <td>
+                                    <table width="360" height="350" border="0" cellpadding="0" cellspacing="0" style="background:url('https://exp.cdn-hotels.com/hotels/2000000/1150000/1143100/1143002/823a9c80_z.jpg'); background-size: cover; background-position: center center;background-repeat: no-repeat;"> 
+                                    </table>
+                                </td>
+
+                                <td>
+                                    <table width="12"></table>
+                                </td>
+
+                                <!-- NOTE : JANGAN LUPA GANTI PATH GAMBARNYA "../PATH TO THE IMAGE." -->
+                                <td>
+                                    <table width="360" height="350" border="0" cellpadding="0" cellspacing="0" style="background:url('https://exp.cdn-hotels.com/hotels/2000000/1150000/1143100/1143002/823a9c80_z.jpg'); background-size: cover; background-position: center center;background-repeat: no-repeat;"> 
+                                    </table>
+                                </td>
+
+                                <td>
+                                    <table width="14"></table>
+                                </td>
+
+                                <!-- NOTE : JANGAN LUPA GANTI PATH GAMBARNYA "../PATH TO THE IMAGE." -->
+                                <td>
+                                    <table width="360" height="350" border="0" cellpadding="0" cellspacing="0" style="background:url('https://exp.cdn-hotels.com/hotels/2000000/1150000/1143100/1143002/823a9c80_z.jpg'); background-size: cover; background-position: center center;background-repeat: no-repeat;"> 
+                                    </table>
+                                </td>
+
+                                <td>
+                                    <table width="13"></table>
+                                </td>
+
+                                <!-- NOTE : JANGAN LUPA GANTI PATH GAMBARNYA "../PATH TO THE IMAGE." -->
+                                <td>
+                                    <table width="360" height="350" border="0" cellpadding="0" cellspacing="0" style="background:url('https://exp.cdn-hotels.com/hotels/2000000/1150000/1143100/1143002/823a9c80_z.jpg'); background-size: cover; background-position: center center;background-repeat: no-repeat;"> 
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr> 
+                <!-- Gallery List End -->
+
+                <tr>
+                    <td width="100%" height="40"></td>
+                </tr>
+
+                <!-- Overview Start -->
+                <tr class="overview" >
+                    <td> 
+                        <table width="100%" cellpadding="0" cellspacing="0">  
+                            <tr>
+                                <!-- Overview Kiri Start-->
+                                <td>
+                                    <table width="730" cellpadding="0" cellspacing="0" height="100" >
+                                        <tr> 
+                                            <td style="color: #58595b; font-family: Roboto, sans-serif; font-size: 20px; font-weight: 600;  line-height:24px; letter-spacing:1px; height: 100%;">
+                                                Overview
+                                            </td> 
+                                        </tr>
+
+                                        <!-- Spacing -->
+                                        <tr>
+                                            <td width="100%" height="10"></td>
+                                        </tr>
+                                        <!-- Spacing -->
+
+                                        <tr>
+                                            <td style="color: #58595b; font-family: Roboto, sans-serif; font-size: 18px; line-height: 25px; text-align: justify;">
+                                                Grand Aston Bali Beach Resort, an overwhelming five-star hotel is an ideal retreat to escape, unwind and enjoy peace of mind. Set in the exclusive enclave of Nusa Dua on one of the arresting exclusive beaches of Tanjung Benoa. The resort’s spacious and luxurious 188 rooms and suites are decorated in a Balinese contemporary style and fully-equipped with modern amenities for uncompromising comfort. The property has four versatile restaurants and three bars serving Western, Asian, Italian and Balinese cuisine. An impressive lagoon pool with a swim-up bar and the resort in-house Biwana Spa is an indulgence in pure leisure. The hotel is synonymous with enjoyment and value for money, with a large choice of very attractive “All Inclusive” packages and room & breakfast offers. Grand Aston Bali Beach Resort is a magical place where time stands still and memories last long.
+                                            </td>
+                                        </tr>
+
+                                        <!-- Spacing -->
+                                        <tr>
+                                            <td width="100%" height="10"></td>
+                                        </tr>
+                                        <!-- Spacing -->
+
+                                        <tr> 
+                                            <td style="color: #58595b; font-family: Roboto, sans-serif; font-size: 20px; font-weight: 600;  line-height:24px; letter-spacing:1px;">
+                                                Amenities
+                                            </td> 
+                                        </tr>
+
+                                        <tr>
+                                            <td width="100%" height="10"></td>
+                                        </tr>
+
+                                        <!-- NOTE : JANGAN LUPA GANTI PATH GAMBARNYA "../PATH TO THE IMAGE." -->
+                                        <tr>
+                                            <td style="color: #58595b; font-family: Roboto, sans-serif; font-size: 18px; line-height: 25px; text-align: justify;">
+                                                <div class="rate-features2">
+                                                    <ul>
+                                                        <li>Business Center</li>  
+                                                        <li>Business Center</li>  
+                                                        <li>Business Center</li>  
+                                                        <li>Business Center</li>  
+                                                        <li>Business Center</li> 
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                         <!-- Spacing -->
+                                        <tr>
+                                            <td width="100%" height="10"></td>
+                                        </tr>
+                                        <!-- Spacing -->
+
+                                        <tr> 
+                                            <td style="color: #58595b; font-family: Roboto, sans-serif; font-size: 20px; font-weight: 600;  line-height:24px; letter-spacing:1px;">
+                                                Group Policy
+                                            </td> 
+                                        </tr>
+
+                                        <tr>
+                                            <td width="100%" height="10"></td>
+                                        </tr>
+
+                                        <!-- NOTE : JANGAN LUPA GANTI PATH GAMBARNYA "../PATH TO THE IMAGE." -->
+                                        <tr>
+                                            <td style="color: #58595b; font-family: Roboto, sans-serif; font-size: 18px; line-height: 25px; text-align: justify;">
+                                                <div class="rate-features2">
+                                                    <ul>
+                                                        <li>Low Season</li> 
+                                                        <li>Fruit basket</li>
+                                                        <li>Honeymoon cake</li>
+                                                        <li></li>
+                                                        <li>Sed ut urna id metus</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <!-- Overview Kiri End -->
+
+                                <td>
+                                    <table width="20"></table>
+                                </td>
+
+                                <!-- Overview Kanan Start-->
+                                <td>
+                                    <table width="730" cellpadding="0" cellspacing="0">
+                                        <tr> 
+                                            <td style="color: #58595b; font-family: Roboto, sans-serif; font-size: 20px; font-weight: 600;  line-height:24px; letter-spacing:1px;height: 100%;">
+                                                Honeymoon Policy
+                                            </td> 
+                                        </tr>
+
+                                        <tr>
+                                            <td width="100%" height="10"></td>
+                                        </tr>
+                                        <!-- NOTE : JANGAN LUPA GANTI PATH GAMBARNYA "../PATH TO THE IMAGE." -->
+                                        <tr>
+                                            <td style="color: #58595b; font-family: Roboto, sans-serif; font-size: 18px; line-height: 25px; text-align: justify;">
+                                                <div class="rate-features2">
+                                                    <ul>
+                                                        <li>Low Season</li> 
+                                                        <li>Fruit basket</li>
+                                                        <li>Honeymoon cake</li>
+                                                        <li></li>
+                                                        <li>Sed ut urna id metus</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Spacing -->
+                                        <tr>
+                                            <td width="100%" height="10"></td>
+                                        </tr>
+                                        <!-- Spacing -->
+                                        
+                                        <tr> 
+                                            <td style="color: #58595b; font-family: Roboto, sans-serif; font-size: 20px; font-weight: 600;  line-height:24px; letter-spacing:1px;">
+                                                Cancelation Policy
+                                            </td> 
+                                        </tr>
+
+                                        <tr>
+                                            <td width="100%" height="10"></td>
+                                        </tr>
+
+                                        <!-- NOTE : JANGAN LUPA GANTI PATH GAMBARNYA "../PATH TO THE IMAGE." -->
+                                        <tr>
+                                            <td style="color: #58595b; font-family: Roboto, sans-serif; font-size: 18px; line-height: 25px; text-align: justify;">
+                                                <div class="rate-features2">
+                                                    <ul>
+                                                        <li>Low Season</li>
+                                                        <ol>
+                                                            <li>
+                                                                7 Days prior to Arrival : 1 Night charge
+                                                            </li>
+                                                            <li>
+                                                                7 Days prior to Arrival : 1 Night charge
+                                                            </li>
+                                                            <li>
+                                                                7 Days prior to Arrival : 1 Night charge
+                                                            </li>
+                                                        </ol>
+                                                        <li>High Season</li>
+                                                        <ol>
+                                                            <li>
+                                                                7 Days prior to Arrival : 1 Night charge
+                                                            </li>
+                                                            <li>
+                                                                7 Days prior to Arrival : 1 Night charge
+                                                            </li>
+                                                            <li>
+                                                                7 Days prior to Arrival : 1 Night charge
+                                                            </li>
+                                                        </ol>
+                                                        <li>Peak Season</li>
+                                                        <ol>
+                                                            <li>
+                                                                7 Days prior to Arrival : 1 Night charge
+                                                            </li>
+                                                            <li>
+                                                                7 Days prior to Arrival : 1 Night charge
+                                                            </li>
+                                                            <li>
+                                                                7 Days prior to Arrival : 1 Night charge
+                                                            </li>
+                                                        </ol>
+                                                        <li>Sed ut urna id metus</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                    </table>
+                                </td>
+                                <!-- Overview Kanan Start-->
+                            </tr>  
+                        </table> 
+                    </td>
+                </tr>
+                <!-- Overview End --> 
+
+                <tr>
+                    <td width="100%" height="40"></td>
+                </tr> 
+                
+                <tr>
+                    <td>
+                        <table width="100%" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="color: #58595b; font-family: Roboto, sans-serif; font-size: 20px; font-weight: 600;  line-height:24px; letter-spacing:1px;">
+                                    Jalan Pratama No.68X, Tanjung Benoa, Nusa Dua, Bali Indonesia, 80363
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="100%" height="20"></td>
+                            </tr> 
+
+                            <tr>
+                                <td>
+                                    <table width="100%" height="400" cellpadding="0" cellspacing="0" border="1">
+                                        INI BUAT MAP DJUANCOX !!!!! 
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="100%" height="20"></td>
+                            </tr> 
+                        </table>
+                    </td>
+                </tr>  
+        </table>
+    </div>
+</body>
+
+</html>

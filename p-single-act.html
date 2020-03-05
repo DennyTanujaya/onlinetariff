@@ -1,0 +1,684 @@
+<?php
+	$valueNoteTextCancellation = "What to Expect: Java – is the heartland of Indonesia. Lying southeast of Malaysia and Sumatera, south of Kalimantan and west of Bali; it is the fifth largest island in Indonesia, yet the most densely populatedFlanked by limestone ridges and lowlands with a longitudinal mountain chain surmounted by 121 volcanoes; Java acts as Indonesia’s center of culture and economic activity. Central Java province located exactly in the middle of the island of Java, is the island’s cultural, geographic, and historic heartland with strong Buddhist and Hindu heritage. Best known for its two A-list UNESCO World Heritage Sites, Borobudur and Prambanan; the ancient city of Yogyakarta, known also as Jogjakarta or Jogja – is an excellent base and it is the undoubted cultural capital of Java. Embark on a journey to discover the Special Region of Yogyakarta and the strong preserved culture, beliefs, and myth. This 3-day package allows you to discover the Javanese heritage and traditions while visiting the most famous temples along the way and learn more about the culture, history and allure of Java, particularly Yogyakarta. What You Will Do: Day 1: Arrival Yogyakarta – Borobudur, Pawon & Mendut Temple (No Meals) Upon your arrival at Adisucipto International Airport in Yogyakarta, your assigned guide will be waiting at arrival hall to directly escort you on a chauffeured vehicle to the biggest Buddhist monument in the world, Borobudur. Situated in Magelang regency and nestled between the Progo and Elo Rivers, this sacred 8th-century monument is protected by UNESCO as a World Heritage Site. Explore the compound and admire the most complete ensemble of Buddhist reliefs to be found anywhere in the world, with of choice located in the city center. Check-in then have a restful evening.	Overnight at your choice of hotel (Choose between Standard/Superior /Deluxe /First Class Hotel)	. Day 2: Yogyakarta City Tour & Prambanan (B/L/-) Enjoy breakfast at the hotel and pick-up at the hotel lobby at the designated time for a full-day excursion to unfold the history and culture of the city. Visit the 18th-century Sultanate’s palace of Kraton Ngayogyakarta Hadiningrat and the former royal garden of the Sultanate Tamansari Water Castle. Proceed to visit a Batik Workshop to see the making process of this famous fabric and to try your skill in making your own piece of batik. Authentic Javanese cuisine for lunch will be served at one of the best restaurants in the city. In the afternoon, visit the compound of Prambanan Temple which was built in the 9th century AD. The largest Hindu temple compound in Indonesia, the temples in Prambanan Archeological Park dedicated to the three great Hindu divinities Shiva, Vishnu, and Brahma. Transfer back to your hotel in the afternoon and enjoy evening at leisure. Overnight at your choice of hotel in Yogyakarta. Day 3: Departure Yogyakarta (B) Depending on your flight schedule, you will be picked up at the hotel lobby on designated time. Check out and transfer directly to the airport for your onward flight to next destination. - END OF PANORAMA DESTINATION’S SERVICE - Our ‘Jogja Surprise’ package includes: ·	2 nights accommodation based on twin-sharing (2 persons per room) ·	Meals mentioned in the itinerary as specified (B=Breakfast, L=Lunch, D=Dinner) ·	Private transportation in a chauffeur-driven, air-conditioned vehicle ·	Bottled drinking water during transfers ·	Tours and activities as indicated in the itinerary ·	Professional and licensed English-speaking guide (additional charge applies for other language speaking guide) ·	All entrance fees, donations and parking fees as per itinerary ·	Public Liability Insurance ·	11% local government tax and 10% service charge Our ‘Jogja Surprise’ package does NOT include: ·	Visa fee / arrangements if applicable ·	Any domestic or international flights ·	Any alcoholic beverages ·	Personal expenses such as laundry, telephone call, room service, mini bar, etc ·	Personal health and travel insurance ·	Gratuities/ tipping for driver and/or guide and porterage ·	Any applicable High Season and Peak /festive Season surcharge ·	Any additional excursion/optional tours/activites that are not mentioned in the itinerary Good to know: ·	Suitable for FITs with minimum of 2 persons or small group ·	Private basis only (no seat in coach available) ·	Operated daily, with 48 hours advanced reservation required (subject to availability of the hotels/resorts) ·	Compulsory New Year’s Eve dinner on December 31st 2017 (price varies depending on hotel policy – to be advised) Terms & Conditions: ·	Price and booking confirmation are subject to room availability ·	Additional charges apply during high season and peak season period ·	Minimum 2 persons per booking ·	Operated daily, with 48 hours advanced reservation required (subject to availability of the hotels/resorts)";
+
+	$pisah = str_replace("What to Expect:", "", $valueNoteTextCancellation);
+	$pisah1 = explode("What You Will Do:",$pisah);
+	$pisah2 = explode("- END OF PANORAMA DESTINATION’S SERVICE -",$pisah1[1]);
+	$pisah3 = explode("includes:",$pisah2[1]);
+	$pisah3i = explode("Our ‘", $pisah3[1]);
+	$pisah5 = explode("does NOT include:", $pisah3[1]);
+	$pisah5e = explode("Good to know:", $pisah5[1]);
+
+	$pisah10 = explode("Terms & Conditions:", $pisah5e[1]);
+
+	$pisah6 = explode("·	", $pisah5[1]);
+	$pisah4 = explode("·	", $pisah3i[0]);
+	$pisah8 = explode("·	", $pisah5e[0]);
+	$pisah7 = explode("·	", $pisah10[0]);
+	$pisah9 = explode("·	", $pisah10[1]);
+	
+
+	$day1 = explode("Day", $pisah2[0]);
+	
+	echo 'What To Expect: '.$pisah1[0];
+	echo '<br /><br />What you will do: <br />';
+	$jumlahLow = count($day1);
+	for($i=1;$i<$jumlahLow;$i++)
+	{
+		echo 'Day '.$day1[$i].'<br />';
+		
+	}
+	echo '<br />- END OF PANORAMA DESTINATION’S SERVICE -<br /><br />';
+	echo $pisah3[0].' includes: <br /><br />';
+	$jumlahPackageInclusive = count($pisah4);	
+	for($i=1;$i<$jumlahPackageInclusive;$i++)
+	{
+		echo $pisah4[$i].'<br />';
+	}
+	
+
+	echo ' does NOT includes: <br /><br />';
+	$jumlahPackageExclusive = count($pisah8);	
+	for($i=1;$i<$jumlahPackageExclusive;$i++)
+	{
+		echo $pisah8[$i].'<br />';
+	}
+
+	echo "Good to know:<br />";
+	$jumlahPackageGoodToKnow = count($pisah7);	
+	for($i=1;$i<$jumlahPackageGoodToKnow;$i++)
+	{
+		echo $pisah7[$i].'<br />';
+	}
+
+	echo "Terms & Conditions:<br />";
+	$jumlahPackagetc = count($pisah9);	
+	for($i=1;$i<$jumlahPackagetc;$i++)
+	{
+		echo $pisah9[$i].'<br />';
+	}
+
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Online Tariff</title>
+    <link rel="icon" href="http://www.panorama-destination.com/wp-content/uploads/2017/07/favico.png">
+    <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+    <link type="text/css" rel="stylesheet" href="css/JFFormStyle-1.css" />
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/jquery-ui.css" />
+    <!-- js -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/modernizr.custom.js"></script>
+    <!-- //js -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <!-- 
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png"> -->
+</head>
+
+<body>
+    <!--header-->
+    <div class="header">
+        <div class="container">
+            <div class="header-middle">
+                <!--header-middle-->
+                <div class="container">
+                    <div class="col-sm-4">
+                        <div class="logo pull-left">
+                            <a href="index.html"><img src="images/logo.png" alt="" /></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-8" style="padding-right: 2.5%;">
+                        <div class="shop-menu pull-right">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <a href="#">
+                                        <div class="center">
+                                            Hello, "username"</div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-top">
+                <div class="top-nav">
+                    <span class="menu"><img src="images/menu.png" alt="" /></span>
+                    <ul class="nav1">
+                        <li><a href="index.html">Accommodation</a></li>
+                        <li class="active"><a href="#">Activities</a></li>
+                        <li><a href="#">Arrival Transfer</a></li>
+                        <li><a href="#">Cruises</a></li>
+                        <li><a href="#">Day Tours</a></li>
+                        <li><a href="#">Departure Transfer</a></li>
+                        <li><a href="#">Golf</a></li>
+                        <li><a href="#">Ground Transport</a></li>
+                        <li><a href="#">Packages</a></li>
+                        <li><a href="#">Shocking Offers</a></li>
+                        <li><a href="#">Spa</a></li>
+                        <li><a href="#">Special Interest</a></li>
+                        <li><a href="#">Water Transport</a></li>
+                        <li><a href="#">Wedding & Honeymoon</a></li>
+                    </ul>
+                    <div class="clearfix"> </div>
+                    <!-- script-for-menu -->
+                    <script>
+                    $("span.menu").click(function() {
+                        $("ul.nav1").slideToggle(300, function() {
+                            // Animation complete.
+                        });
+                    });
+                    </script>
+                    <!-- /script-for-menu -->
+                </div>
+                <div class="dropdown-grids">
+                    <div class="dropdown-grids">
+                        <div id="loginContainer"><a href="#" id="loginButton"><span>Logout</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+    <!--//header-->
+    <div class="searchBar">
+        <div class="kameha">
+            <div class="container">
+                <div class="col-md-12 col-md-offset-1">
+                    <div class="reservation">
+                        <div class="online_reservation">
+                            <div class="b_room">
+                                <div class="booking_room">
+                                    <div class="reservation">
+                                        <ul>
+                                            <li class="span1_of_1 desti">
+                                                <h5>Destination, zone or hotel name</h5>
+                                                <div class="book_date">
+                                                    <form>
+                                                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                                                        <input type="text" placeholder="City, Area or Hotel Name" class="typeahead1 input-md form-control tt-input" required="">
+                                                    </form>
+                                                </div>
+                                            </li>
+                                            <li class="span1_of_1 left">
+                                                <h5>Check In</h5>
+                                                <div class="book_date">
+                                                    <form>
+                                                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                                        <input type="text" id="dt1" style="cursor: pointer;">
+                                                    </form>
+                                                </div>
+                                            </li>
+                                            <li class="span1_of_1 left">
+                                                <h5>Check out</h5>
+                                                <div class="book_date">
+                                                    <form>
+                                                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                                        <input type="text" id="dt2" style="cursor: pointer;">
+                                                    </form>
+                                                </div>
+                                            </li>
+                                            <li class="span1_of_3">
+                                                <div class="date_btn">
+                                                    <form>
+                                                        <input type="submit" value="Search" />
+                                                    </form>
+                                                </div>
+                                            </li>
+                                            <div class="clearfix"></div>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner-bottom -->
+    <div class="banner-bottom" id="overview">
+        <!-- container -->
+        <div class="container">
+            <div class="faqs-top-grids">
+                <!--single-page-->
+                <div class="single-page">
+                    <div class="row example-basic">
+                        <div class="col-md-12 single-gd-rt what-to-expect">
+                            <h2>What to expect</h2>
+                            <p align="justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                        </div>
+                        <div class="col-md-12 what-to-expect">
+                            <h2>What you will do</h2>
+                        </div>
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
+                            <ul class="timeline">
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span>day 1</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h3 class="timeline-title">Bla bla bla bla bla</h3>
+                                        <p>Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis eu pede mollis pretium. Pellentesque ut neque.</p>
+                                    </div>
+                                </li>
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span>day 2</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h3 class="timeline-title">Bla bla bla bla bla</h3>
+                                        <p>Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis eu pede mollis pretium.Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis eu pede mollis pretium.Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis eu pede mollis pretium.Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis eu pede mollis pretium.Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis eu pede mollis pretium.Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis eu pede mollis pretium. Pellentesque ut neque.</p>
+                                    </div>
+                                </li>
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span>day 3</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h3 class="timeline-title">Bla bla bla bla bla</h3>
+                                        <p>Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis eu pede mollis pretium. Pellentesque ut neque.</p>
+                                    </div>
+                                </li>
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span>day 4</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h3 class="timeline-title">Bla bla bla bla bla</h3>
+                                        <p>Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis eu pede mollis pretium.Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis eu pede mollis pretium.Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis eu pede mollis pretium.Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis eu pede mollis pretium.Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis eu pede mollis pretium.Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Donec vitae sapien ut libero venenatis faucibus. ullam dictum felis eu pede mollis pretium. Pellentesque ut neque.</p>
+                                    </div>
+                                </li>
+                                <li class="timeline-item period">
+                                    <div class="timeline-info"></div>
+                                    <div class="timeline-marker"></div> 
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!--//single-page-->
+            </div>
+            <!-- room choices -->
+            <div class="banner-bottom-info" style="margin-top: 2em;">
+                <h3>Ganti aja Sesuai Judulnya apa</h3>
+            </div>
+            <div style="margin: 2em 0 0 0;">
+                <div class="searchBar">
+                    <div class="kameha">
+                        <div class="container">
+                            <div class="col-md-12 col-md-offset-1">
+                                <div class="reservation">
+                                    <div class="online_reservation">
+                                        <div class="b_room">
+                                            <div class="booking_room">
+                                                <div class="reservation">
+                                                    <ul>
+                                                        <li class="span1_of_1">
+                                                            <h5>Check in</h5>
+                                                            <div class="book_date">
+                                                                <form>
+                                                                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                                                    <input type="text" id="dt3" style="cursor: pointer;">
+                                                                </form>
+                                                            </div>
+                                                        </li>
+                                                        <li class="span1_of_1 left">
+                                                            <h5>Check out</h5>
+                                                            <div class="book_date">
+                                                                <form>
+                                                                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                                                    <input type="text" id="dt4" style="cursor: pointer;">
+                                                                </form>
+                                                            </div>
+                                                        </li>
+                                                        <li class="span1_of_1 left adult">
+                                                            <h5>Adults (18+)</h5>
+                                                            <!--start section_room-->
+                                                            <div class="section_room">
+                                                                <select class="form-control">
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                    <option>4</option>
+                                                                    <option>5</option>
+                                                                </select>
+                                                            </div>
+                                                        </li>
+                                                        <li class="span1_of_1 left h-child">
+                                                            <h5>Children (0-17)</h5>
+                                                            <!--start section_room-->
+                                                            <div class="section_room">
+                                                                <select class="form-control">
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                    <option>4</option>
+                                                                    <option>5</option>
+                                                                </select>
+                                                            </div>
+                                                        </li>
+                                                        <li class="span1_of_1 h-rooms">
+                                                            <h5>Rooms</h5>
+                                                            <!--start section_room-->
+                                                            <div class="section_room">
+                                                                <select class="form-control">
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                    <option>4</option>
+                                                                    <option>5</option>
+                                                                </select>
+                                                            </div>
+                                                        </li>
+                                                        <li class="span1_of_3">
+                                                            <div class="date_btn">
+                                                                <form>
+                                                                    <input type="submit" value="Search" />
+                                                                </form>
+                                                            </div>
+                                                        </li>
+                                                        <div class="clearfix"></div>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="c-rooms" id="room" style="margin: 0;">
+                <div class="p-table">
+                    <div class="p-table-grids">
+                        <div class="col-md-4 p-table-grid">
+                            <div class="p-table-grad-heading">
+                                <h6>ganti aja yg sesuai</h6>
+                            </div>
+                            <div class="p-right-img" style="background: url(images/rafting.jpg) no-repeat 0px 0px; /*buat ganti gambar, ganti URLnya aja*/
+                                        background-size: cover;
+                                        display: block;margin: 1em 1em 0 1em;">
+                                <a href="#">  </a>
+                            </div>
+                            <div class="p-table-grid-info">
+                                <div class="room-basic-info">
+                                    <a href="#">"Ganti Nama Paket"</a>
+                                    <h6>penjelasan paket</h6>
+                                    <p>penjelasan paket</p>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-md-4 p-table-grid">
+                            <div class="p-table-grad-heading">
+                                <h6>Avg rate per night</h6>
+                            </div>
+                            <div class="avg-rate">
+                                <h5>Recommended for you</h5>
+                                <p>Price is now:</p>
+                                <span class="p-offer">$140</span>
+                                <span class="p-last-price">$230</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 p-table-grid">
+                            <div class="p-table-grad-heading">
+                                <h6>Book</h6>
+                            </div>
+                            <div class="book-button-column">
+                                <a href="#">Book</a>
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+                <div class="p-table">
+                    <div class="p-table-grids">
+                        <div class="col-md-4 p-table-grid">
+                            <div class="p-table-grad-heading">
+                                <h6>ganti aja yg sesuai</h6>
+                            </div>
+                            <div class="p-right-img" style="background: url(images/rafting.jpg) no-repeat 0px 0px; /*buat ganti gambar, ganti URLnya aja*/
+                                        background-size: cover;
+                                        display: block;margin: 1em 1em 0 1em;">
+                                <a href="#">  </a>
+                            </div>
+                            <div class="p-table-grid-info">
+                                <div class="room-basic-info">
+                                     <a href="#">"Ganti Nama Paket"</a>
+                                    <h6>penjelasan paket</h6>
+                                    <p>penjelasan paket</p>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-md-4 p-table-grid">
+                            <div class="p-table-grad-heading">
+                                <h6>Avg rate per night</h6>
+                            </div>
+                            <div class="avg-rate">
+                                <h5>Recommended for you</h5>
+                                <p>Price is now:</p>
+                                <span class="p-offer">$140</span>
+                                <span class="p-last-price">$230</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 p-table-grid">
+                            <div class="p-table-grad-heading">
+                                <h6>Book</h6>
+                            </div>
+                            <div class="book-button-column">
+                                <a href="#">Book</a>
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+                <div class="p-table">
+                    <div class="p-table-grids">
+                        <div class="col-md-4 p-table-grid">
+                            <div class="p-table-grad-heading">
+                                <h6>ganti aja yg sesuai</h6>
+                            </div>
+                            <div class="p-right-img" style="background: url(images/rafting.jpg) no-repeat 0px 0px; /*buat ganti gambar, ganti URLnya aja*/
+                                        background-size: cover;
+                                        display: block;margin: 1em 1em 0 1em;">
+                                <a href="#">  </a>
+                            </div>
+                            <div class="p-table-grid-info">
+                                <div class="room-basic-info">
+                                     <a href="#">"Ganti Nama Paket"</a>
+                                    <h6>penjelasan paket</h6>
+                                    <p>penjelasan paket</p>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-md-4 p-table-grid">
+                            <div class="p-table-grad-heading">
+                                <h6>Avg rate per night</h6>
+                            </div>
+                            <div class="avg-rate">
+                                <h5>Recommended for you</h5>
+                                <p>Price is now:</p>
+                                <span class="p-offer">$140</span>
+                                <span class="p-last-price">$230</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 p-table-grid">
+                            <div class="p-table-grad-heading">
+                                <h6>Book</h6>
+                            </div>
+                            <div class="book-button-column">
+                                <a href="#">Book</a>
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </div>
+            <!-- hotel information -->
+            <div id="info">
+                <div class="banner-bottom-info" style="margin: 2em 0;">
+                    <h3>ganti aja sendiri</h3>
+                </div>
+                <div class="p-table">
+                    <div class="p-table-grids">
+                        <div class="col-md-6 p-table-grid">
+                            <div class="p-table-grad-heading2">
+                                <h6>"Ini buat policy title"</h6>
+                                <p>Situated in the center of Bali’s fantastic shopping, bars, cafes, restaurants, and beach area, Asana Agung Putra Hotel provides the perfect combination of bustling urban life and relaxed seaside living. Just a few meters down a driveway in Poppies Lane, you can escape from the bustle of everyday life as you lie back on a sun lounger, sip a tropical cocktail from the Pool Bar and bask under cloudless skies. Keep active with a swim in the pool or a workout in the fitness center. There is even a full size Billiard Table if you feel you need a challenge. Asana Agung Putra Hotel offers fine dining, music and cocktails in our Restaurant or you can spoil yourself by ordering your meal and drinks to be served to you as you enjoy sitting by either our Tranquility Pool (by the Restaurant) or around the larger Fun Pool.</p>
+                                <h6>"Another Policy title"</h6>
+                                <p>For every 15 paying rooms, is entitled to get 1 room based on free of charge.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 p-table-grid">
+                            <div class="p-table-grad-heading2">
+                                <h6>"More Policy title"</h6>
+                                <div class="rate-features2">
+                                    <ul>
+                                        <li>Guarantee double bed</li>
+                                        <li>Fruit basket</li>
+                                        <li>Honeymoon cake</li>
+                                        <li></li>
+                                        <li>Sed ut urna id metus</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="p-table-grad-heading2">
+                                <h6>"More Policy <title></title>"</h6>
+                                <div class="rate-features2">
+                                    <ul>
+                                        <li>Guarantee double bed</li>
+                                        <li>Fruit basket</li>
+                                        <li>Honeymoon cake</li>
+                                        <li></li>
+                                        <li>Sed ut urna id metus</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //container -->
+    </div>
+    <!-- //banner-bottom -->
+    <!-- footer -->
+    <div class="footer">
+        <!-- container -->
+        <div class="container">
+            <div class="footer-top-grids">
+                <div class="footer-grids">
+                    <div class="col-md-4 footer-grid">
+                        <h4>Our Products</h4>
+                        <ul>
+                            <li><a href="#">Activities</a></li>
+                            <li><a href="#">Arrival Transfer</a></li>
+                            <li><a href="#">Cruises</a></li>
+                            <li><a href="#">Day Tours</a></li>
+                            <li><a href="#">Departure Transfer</a></li>
+                            <li><a href="#">Golf</a></li>
+                            <li><a href="#">Ground Transport</a></li>
+                            <li><a href="#">Packages</a></li>
+                            <li><a href="#">Shocking Offers</a></li>
+                            <li><a href="#">Spa</a></li>
+                            <li><a href="#">Special Interest</a></li>
+                            <li><a href="#">Water Transport</a></li>
+                            <li><a href="#">Wedding & Honeymoon</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 footer-grid">
+                        <h4>Administration</h4>
+                        <ul>
+                            <li><a href="#">Media Library</a></li>
+                            <li><a href="#">Library</a></li>
+                            <li><a href="#">Product Tariff</a></li>
+                            <li><a href="#">Privacy </a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 footer-grid">
+                        <h4>Customer Support</h4>
+                        <ul>
+                            <li><a href="#">Contact Us</a></li>
+                        </ul>
+                        <h4 style="margin-top: 20px;">Follow Us</h4>
+                        <div class="social">
+                            <ul>
+                                <li><a href="#" class="facebook"> </a></li>
+                                <li><a href="#" class="facebook twitter"> </a></li>
+                                <li><a href="#" class="facebook chrome"> </a></li>
+                                <li><a href="#" class="facebook dribbble"> </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <!-- news-letter -->
+                <div class="news-letter">
+                    <div class="news-letter-grids">
+                        <div class="col-md-4 news-letter-grid">
+                            <p>Toll Free No : <span>+62 21 5695 8585</span></p>
+                        </div>
+                        <div class="col-md-4 news-letter-grid">
+                            <p class="mail">Email : <a href="mailto:info@example.com">info@panorama-destination.com</a></p>
+                        </div>
+                        <div class="col-md-4 news-letter-grid">
+                            <form>
+                                <input type="text" value="Email" required="">
+                                <input type="submit" value="Subscribe">
+                            </form>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+                <!-- //news-letter -->
+            </div>
+        </div>
+        <!-- //container -->
+    </div>
+    <!-- //footer -->
+    <div class="footer-bottom-grids">
+        <!-- container -->
+        <div class="container">
+            <div class="copyright">
+                <p>Copyright © 2017 Panorama Destination, Tbk. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+    <script defer src="js/jquery.flexslider.js"></script>
+    <script src="js/easyResponsiveTabs.js" type="text/javascript"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#horizontalTab').easyResponsiveTabs({
+            type: 'default', //Types: default, vertical, accordion           
+            width: 'auto', //auto or any width like 600px
+            fit: true // 100% fit in a container
+        });
+    });
+    </script>
+    <!--pop-up-->
+    <script src="js/menu_jquery.js"></script>
+    <!--//pop-up-->
+    <!--strat-date-piker-->
+    <script>
+    jQuery(function() {
+
+
+        $("#dt1").datepicker('setDate', '+0');
+        $("#dt2").datepicker('setDate', '+1');
+
+        jQuery("#dt1, #dt3").datepicker({
+            minDate: 0,
+            dateFormat: "dd-M-yy",
+            onSelect: function(date) {
+                //alert("none"); 
+                var date1 = jQuery('#dt1').datepicker('getDate');
+                var date = new Date(Date.parse(date1));
+                date.setDate(date.getDate() + 1);
+                var newDate = date.toDateString();
+                newDate = new Date(Date.parse(newDate));
+                jQuery('#dt2').datepicker("option", "minDate", newDate);
+
+            }
+
+        });
+        jQuery("#dt2, #dt4").datepicker({
+            minDate: '+1d',
+            dateFormat: "dd-M-yy"
+        });
+    });
+    </script>
+    <!--End-date-piker-->
+</body>
+
+</html>
